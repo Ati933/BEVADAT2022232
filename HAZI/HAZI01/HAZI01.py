@@ -5,7 +5,7 @@
 #input parameters: input_list,start_index,end_index
 
 def subset(input_list,start_index,end_index):
-    return input_list[start_index:end_index+1]
+    return input_list[start_index:end_index]
 
 #Create a function that returns every nth element of a list.
 #return type: list
@@ -13,7 +13,7 @@ def subset(input_list,start_index,end_index):
 #input parameters: input_list,step_size
 
 def every_nth(input_list,step_size):
-    return input_list[step_size-1::step_size]
+    return input_list[0::step_size]
 
 #Create a function that can decide whether a list contains unique values or not
 #return type: bool
@@ -69,8 +69,8 @@ def reverse_tuples(input_list):
 #fucntion name must be: remove_tuplicates
 #input parameters: input_list
 
-def remove_tuplicates(input_list):
-    return set(input_list)
+def remove_duplicates(input_list):
+    return list(set(input_list))
 
 #Create a function that transposes a nested list (matrix)
 #return type: list
