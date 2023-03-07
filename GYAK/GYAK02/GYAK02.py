@@ -21,8 +21,8 @@ def create_array(tpl: tuple = (2,2)) -> np.array:
 #Ki: [[1,2],[3,1]]
 #set_one()
 
-def set_one(inpt: np.array) -> np.array:
-    return np.fill_diagonal(inpt, 1)
+def set_one(inpt: np.array):
+    np.fill_diagonal(inpt, 1)
 
 # Készíts egy függvényt ami transzponálja a paraméterül kapott mártix-ot:
 # Be: [[1, 2], [3, 4]]
@@ -30,7 +30,7 @@ def set_one(inpt: np.array) -> np.array:
 # do_transpose()
 
 def do_transpose(matrix: np.array) -> np.array:
-    return matrix.transpose()
+    return np.transpose(matrix)
 
 # Készíts egy olyan függvényt ami az array-ben lévő értékeket N tizenedjegyik kerekíti, ha nincs megadva ez a paraméter, akkor legyen az alapértelmezett a kettő 
 # Be: [0.1223, 0.1675], 2
@@ -38,7 +38,7 @@ def do_transpose(matrix: np.array) -> np.array:
 # round_array()
 
 def round_array(array: np.array, rnd: int = 2) -> np.array:
-    return array.round(rnd)
+    return np.around(array, rnd)
 
 # Készíts egy olyan függvényt, ami a bementként kapott 0 és 1 ből álló tömben a 0 - False-ra, az 1 True-ra cserélni
 # Be: [[1, 0, 0], [1, 1, 1],[0, 0, 0]]
