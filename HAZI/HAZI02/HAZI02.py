@@ -75,9 +75,9 @@ def eval_classification(inpt1: list, inpt2: np.array):
 # Ki: [-1,2,-1,4,-1,6]
 # repalce_odd_numbers()
 
-def repalce_odd_numbers(inpt: np.array) -> np.array:
-    inpt[inpt % 2 == 1] = -1
-    return inpt
+def replace_odd_numbers(inpt: np.array) -> np.array:
+    result = np.where(inpt % 2 == 1, -1, inpt)
+    return result
 
 # Készíts egy olyan függvényt, ami egy array értékeit -1 és 1-re változtatja, attól függően, hogy az adott elem nagyobb vagy kisebb a paraméterként megadott számnál.
 # Ha a szám kisebb mint a megadott érték, akkor -1, ha nagyobb vagy egyenlő, akkor pedig 1.
@@ -86,9 +86,8 @@ def repalce_odd_numbers(inpt: np.array) -> np.array:
 # replace_by_value()
 
 def replace_by_value(inpt: np.array, val: int) -> np.array:
-    inpt[inpt < val] = -1
-    inpt[inpt >= val] = 1
-    return inpt
+    result = np.where(inpt < val, -1, 1)
+    return result
 
 # Készíts egy olyan függvényt, ami egy array értékeit összeszorozza és az eredményt visszaadja
 # Be: [1,2,3,4]
@@ -140,4 +139,4 @@ def get_act_date() -> np.datetime64:
 # sec_from_1970()
 
 def sec_from_1970() -> int:
-    return int((np.datetime64('now') - np.datetime64('1970-01-01T00:02:00')) / np.timedelta64(1, 's'))
+    return int((np.datetime64('now') + np.timedelta64(1, 'h') - np.datetime64('1970-01-01T00:02:00')) / np.timedelta64(1, 's'))
