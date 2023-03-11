@@ -48,11 +48,10 @@ def get_array_shape(inpt: np.array) -> str:
 # encode_Y()
 
 def encode_Y(inpt: np.array, val: int) -> np.array:
-    encoded = np.zeros((val,val))
-    nums = np.arange(0, val)
-    encoded[nums, inpt[nums]] = 1
+    result = np.zeros((len(inpt), val))
+    result[np.arange(len(inpt)), inpt] = 1
 
-    return encoded
+    return result
 
 # A fenti feladatnak valósítsd meg a kiértékelését. Adj meg a 2d array-t és adj vissza a decodolt változatát
 # Be:  [[0,1,0,0], [0, 0, 1, 0], [1, 0, 0, 0], [0, 0, 0, 1]]
