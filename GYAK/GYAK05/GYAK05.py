@@ -7,7 +7,7 @@ import seaborn as sns
 class KNNClassifier:
     def __init__(self, k: int, test_split_ratio: float):
         self.k = k
-        self.test_split_ration = test_split_ratio
+        self.test_split_ratio = test_split_ratio
 
     @staticmethod
     def load_csv(path : str) -> Tuple[np.ndarray, np.ndarray]:
@@ -17,7 +17,7 @@ class KNNClassifier:
         x, y = dataset[:, :-1], dataset[:, -1]
         return x, y
     
-    def train_test_split(self, features: np.ndarray, labels: np.ndarray):
+    def train_set_split(self, features: np.ndarray, labels: np.ndarray):
         test_size = int(len(features) * self.test_split_ratio)
         train_size = len(features) - test_size
         assert len(features) == test_size + train_size, "Size missmatch!!!"
