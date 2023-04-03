@@ -20,6 +20,14 @@ class KNNClassifier:
 
         return dataFrame.iloc[:,:-1], dataFrame.iloc[:,-1]
     
+    def train_test_split(self, features:pd.core.frame.DataFrame, labels:pd.core.series.Series):
+        test_size = int(len(features) * self.test_split_ratio)
+        train_size = len(features) - test_size
+        assert len(features) == test_size + train_size, "Size mismatch!"
+
+        self.x_train, self.y_train = features.iloc[:train_size,:], labels.iloc[:train_size]
+        self.x_test, self.y_test = features.iloc[train_size:train_size+test_size,:], labels.iloc[train_size:train_size + test_size]
+
     def euclidean(self, element_of_x:pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
         return ((self.x_train - element_of_x)**2).sum(axis=1) ** .5
     
@@ -34,21 +42,13 @@ class KNNClassifier:
 
         self.y_preds = pd.DataFrame(labels_pred).iloc[:,0]
 
-    def confusion_matrix(self):
-        conf_matrix = confusion_matrix(self.y_test, self.y_preds)
-        return conf_matrix
-    
     def accuracy(self) -> float:
         true_positive = (self.y_test.reset_index(drop=True) == self.y_preds.reset_index(drop=True)).sum()
         return true_positive / len(self.y_test) * 100
-    
-    def train_test_split(self, features:pd.core.frame.DataFrame, labels:pd.core.series.Series):
-        test_size = int(len(features) * self.test_split_ratio)
-        train_size = len(features) - test_size
-        assert len(features) == test_size + train_size, "Size mismatch!"
 
-        self.x_train, self.y_train = features.iloc[:train_size,:], labels.iloc[:train_size]
-        self.x_test, self.y_test = features.iloc[train_size:train_size+test_size,:], labels.iloc[train_size:train_size + test_size]
+    def confusion_matrix(self):
+        conf_matrix = confusion_matrix(self.y_test, self.y_preds)
+        return conf_matrix
 
     def best_accuracy(self) -> Tuple[int, float]:
         best_k = -1
