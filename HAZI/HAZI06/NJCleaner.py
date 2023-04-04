@@ -73,16 +73,9 @@ class NJCleaner():
 
     def prep_df(self, path = 'data/NJ.csv'):
         self.data = self.order_by_scheduled_time()
-        print("1/7 done")
         self.data = self.drop_columns_and_nan()
-        print("2/7 done")
         self.data = self.convert_date_to_day()
-        print("3/7 done")
         self.data = self.convert_scheduled_time_to_part_of_the_day()
-        print("4/7 done")
         self.data = self.convert_delay()
-        print("5/7 done")
         self.data = self.drop_unnecessary_columns()
-        print("6/7 done")
         self.save_first_60k(path)
-        print("DONE")
