@@ -47,7 +47,6 @@ class NJCleaner():
 
     def drop_unnecessary_columns(self) -> pd.core.frame.DataFrame:
         dropped = self.data.drop(['train_id'], axis=1)
-        dropped = dropped.drop(['scheduled_time'], axis=1)
         dropped = dropped.drop(['actual_time'], axis=1)
         dropped = dropped.drop(['delay_minutes'], axis=1)
         
