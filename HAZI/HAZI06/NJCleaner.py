@@ -12,7 +12,7 @@ class NJCleaner():
     def drop_columns_and_nan(self) -> pd.core.frame.DataFrame:
         dropped = self.data.drop(['from'], axis=1)
         dropped = dropped.drop(['to'], axis=1)
-        #dropped = dropped.dropna()
+        dropped = dropped.dropna()
 
         return dropped
 
@@ -47,7 +47,7 @@ class NJCleaner():
 
     def drop_unnecessary_columns(self) -> pd.core.frame.DataFrame:
         dropped = self.data.drop(['train_id'], axis=1)
-        #dropped = dropped.drop(['scheduled_time'], axis=1)
+        dropped = dropped.drop(['scheduled_time'], axis=1)
         dropped = dropped.drop(['actual_time'], axis=1)
         dropped = dropped.drop(['delay_minutes'], axis=1)
         
