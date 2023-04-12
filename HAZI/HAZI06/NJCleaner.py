@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 
 class NJCleaner():
     def __init__(self, path: str) -> None:
@@ -24,38 +25,23 @@ class NJCleaner():
 
     def convert_scheduled_time_to_part_of_the_day(self) -> pd.core.frame.DataFrame:
         df_new = self.data
-        df_new['part_of_the_day'] = ''
         
-        for i in range(len(df_new)):
-            hour = pd.to_datetime(df_new['scheduled_time'][i]).hour
-            
-            if hour < 4 and hour >= 0:
-                df_new['part_of_the_day'][i] = 'late_night'
-            elif hour < 8 and hour >= 4:
-                df_new['part_of_the_day'][i] = 'early_morning'
-            elif hour < 12 and hour >= 8: 
-                df_new['part_of_the_day'][i] = 'morning'
-            elif hour < 16 and hour >= 12: 
-                df_new['part_of_the_day'][i] = 'afternoon'
-            elif hour < 20 and hour >= 16: 
-                df_new['part_of_the_day'][i] = 'evening'
-            else:
-                df_new['part_of_the_day'][i] = 'night'
+        df_new['scheduled_time'] = pd.to_datetime(df_new['scheduled_time'])
+        hour = df_new['scheduled_time'].dt.hour
+    
+        df_new['part_of_the_day'] = hour.apply(lambda x: 'late_night' if 0 <= x < 4 else
+                                                 'early_morning' if 4 <= x < 8 else
+                                                 'morning' if 8 <= x < 12 else
+                                                 'afternoon' if 12 <= x < 16 else
+                                                 'evening' if 16 <= x < 20 else 'night')
 
         df_new = df_new.drop(['scheduled_time'], axis=1)
         return df_new
 
     def convert_delay(self) -> pd.core.frame.DataFrame:
         df_new = self.data
-        df_new['delay'] = ''
 
-        for i in range(len(df_new)):
-            delay = df_new['delay_minutes'][i]
-
-            if delay >= 0 and delay < 5:
-                df_new['delay'][i] = 0
-            elif delay >= 5:
-                df_new['delay'][i] = 1
+        df_new['delay'] = df_new['delay_minutes'].apply(lambda x: 1 if x >= 5 else 0)
 
         return df_new
 
