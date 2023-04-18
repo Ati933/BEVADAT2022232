@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 class LinearRegression:
     def __init__(self, epochs: int = 1000, lr: float = 1e-3):
         iris = load_iris()
+        self.epochs = epochs
         self.df = pd.DataFrame(iris.data, columns=iris.feature_names)
 
         self.df['target'] = iris.target
@@ -19,13 +20,13 @@ class LinearRegression:
         self.c = 0
 
         L = 0.0001  # The learning Rate
-        epochs = 1000  # The number of iterations to perform gradient descent
+        #epochs = 1000  # The number of iterations to perform gradient descent
 
         n = float(len(X_train)) # Number of elements in X
 
         # Performing Gradient Descent 
         losses = []
-        for i in range(epochs): 
+        for i in range(self.epochs): 
             y_pred = self.m * X_train + self.c  # The current predicted value of Y
 
             residuals = y_pred - y_train
