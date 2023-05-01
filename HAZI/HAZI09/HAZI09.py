@@ -1,12 +1,7 @@
-import matplotlib.pyplot as plt
-import seaborn as sns
-sns.set()
 import numpy as np
-from sklearn.cluster import KMeans
-from sklearn.metrics import accuracy_score
-from scipy.stats import mode
-from sklearn.metrics import confusion_matrix
 from sklearn.datasets import load_digits
+from sklearn.cluster import KMeans
+from sklearn.metrics import confusion_matrix
 
 class KMeansOnDigits():
     def __init__(self, n_clusters, random_state):
@@ -21,12 +16,13 @@ class KMeansOnDigits():
         self.clusters = model.fit_predict(self.digits.data)
 
     def get_labels(self):
-        result = np.zeros(self.clusters.shape)
+        result = np.zeros_like(self.clusters)
 
-        for cluster in range(self.clusters):
+        for cluster in range(self.n_clusters):
             mask = self.clusters == cluster
-            result[mask] = np.argmax(np.bincount(self.digits.target[mask]))
-
+            mode = np.argmax(np.bincount(self.digits.target[mask]))
+            result[mask] = mode
+            
         self.labels = result
 
     def calc_accuracy(self):
